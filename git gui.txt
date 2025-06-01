@@ -39,4 +39,13 @@ db.aggregateproduct.insertMany( [
 ]);
 
 
+> db.aggregateproduct.aggregate([
+...    { $project : { product : 1,quantity : 1 } } ,
+...    { $group: { _id: "$product", total: { $sum: "$quantity" } } },
+...    {$sort : { total : 1 }
+...    }
+... ])
+
+
+
 

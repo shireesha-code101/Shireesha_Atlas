@@ -22,3 +22,21 @@ db.orders.insertMany( [
     quantity: 10, date : ISODate( "2021-01-13T05:10:13Z" ) }
 ] )
 
+
+db.aggregateproduct.insertMany( [
+   { product: "register", quantity: 25, size: { height: 14, weight: 21, unit: "cm" }, status: "A" },
+   { product: "book", quantity: 50, size: { height: 8.5, weight: 11, unit: "in" }, status: "A" },
+   { product: "sheet", quantity: 100, size: { height: 8.5, weight: 11, unit: "in" }, status: "D" },
+   { product: "timetable", quantity: 75, size: { height: 22.85, weight: 30, unit: "cm" }, status: "D" },
+   { product: "envelop", quantity: 45, size: { height: 10, weight: 15.25, unit: "cm" }, status: "A" },
+   { product: "register", quantity: 25, size: { height: 14, weight: 21, unit: "cm" }, status: "A" },
+   { product: "book", quantity: 50, size: { height: 8.5, weight: 11, unit: "in" }, status: "A" },
+   { product: "sheet", quantity: 100, size: { height: 8.5, weight: 11, unit: "in" }, status: "D" },
+   { product: "timetable", quantity: 75, size: { height: 22.85, weight: 30, unit: "cm" }, status: "D" },
+   { product: "envelop", quantity: 45, size: { height: 10, weight: 15.25, unit: "cm" }, status: "A" },
+   { product: "register", quantity: 25, size: { height: 14, weight: 21, unit: "cm" }, status: "A" },
+   { product: "book", quantity: 50, size: { height: 8.5, weight: 11, unit: "in" }, status: "A" }
+]);
+
+
+

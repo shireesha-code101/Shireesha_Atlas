@@ -1,25 +1,43 @@
-class Customer {
-    // Method to accept customer details
-    void accept() {
-        System.out.println("accept customer called");
-    }
+import java.util.Scanner;
 
-    // Method to display customer details
-    void display() {
-        System.out.println("display customer called");
-    }
-}
-
-// Define the Test008 class with the main method
-public class Test008 {
+public class LoginSystem {
     public static void main(String[] args) {
-        // Create an instance of the Customer class
-        Customer cobj = new Customer();
+        Scanner sc = new Scanner(System.in);
 
-        // Call the accept method
-        cobj.accept();
+        // Predefined login credentials
+        String correctLoginId = "Prasunamba";
+        String correctPwd = "12345867";
 
-        // Call the display method
-        cobj.display();
+        // Variable to count login attempts
+        int count = 0;
+
+        // Loop to allow multiple login attempts
+        while (true) {
+            // Prompt user for login credentials
+            System.out.println("Enter your login ID:");
+            String loginId = sc.nextLine();
+            System.out.println("Enter your password:");
+            String pwd = sc.nextLine();
+
+            // Check if entered credentials match predefined ones
+            if (loginId.equals(correctLoginId) && pwd.equals(correctPwd)) {
+                count++;
+                System.out.println("You have logged in " + count + " times.");
+            } else {
+                System.out.println("Invalid login ID or password.");
+            }
+
+            // Ask user if they want to try logging in again
+            System.out.println("Do you want to try again? (yes/no):");
+            String response = sc.nextLine();
+            if (!response.equalsIgnoreCase("yes")) {
+                break;
+            }
+        }
+
+        // Close the scanner to release resources
+        sc.close();
+        System.out.println("Thank you for using the login system.");
     }
 }
+

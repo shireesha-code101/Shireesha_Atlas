@@ -1,22 +1,21 @@
-package StringHandling;
+public class person {
 
-public class Demo01 {
+    private String name;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public String getName() {
+        return name;
+
+    }
     public static void main(String[] args) {
-        // String literal
-        String str1 = "Java Strings "; // string literal
-        
-        // String object using new keyword
-        String str2 = new String(str1); // object of the string - new keyword
-        
-        // String object using new keyword with a different literal
-        String str3 = new String("are easy to learn ");
-        
-        // Character array to String
-        char[] ch = {'S', 't', 'r', 'i', 'n', 'g'}; 
-        String str4 = new String(ch);
-        
-        // Printing all strings
-        System.out.println(str1 + "\n" + str2 + "\n" + str3 + "\n" + str4);
+        person s = new person();
+
+        s.setName("Siri");
+
+        System.out.println("Name: " + s.getName());
     }
 }

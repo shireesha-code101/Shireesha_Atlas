@@ -1,39 +1,25 @@
-
-   
-public class SimpleCalculator {
-
-    // Method to add two numbers
-    public static int add(int a, int b) {
-        return a + b;
+class Customer {
+    // Method to accept customer details
+    void accept() {
+        System.out.println("accept customer called");
     }
 
-    // Method to subtract two numbers
-    public static int subtract(int a, int b) {
-        return a - b;
+    // Method to display customer details
+    void display() {
+        System.out.println("display customer called");
     }
+}
 
-    // Method to multiply two numbers
-    public static int multiply(int a, int b) {
-        return a * b;
-    }
-
-    // Method to divide two numbers
-    public static int divide(int a, int b) {
-        if (b != 0) {
-            return a / b;
-        } else {
-            System.out.println("Error: Division by zero");
-            return 0;
-        }
-    }
-
+// Define the Test008 class with the main method
+public class Test008 {
     public static void main(String[] args) {
-        int num1 = 20;
-        int num2 = 5;
+        // Create an instance of the Customer class
+        Customer cobj = new Customer();
 
-        System.out.println("Addition: " + add(num1, num2));
-        System.out.println("Subtraction: " + subtract(num1, num2));
-        System.out.println("Multiplication: " + multiply(num1, num2));
-        System.out.println("Division: " + divide(num1, num2));
+        // Call the accept method
+        cobj.accept();
+
+        // Call the display method
+        cobj.display();
     }
 }

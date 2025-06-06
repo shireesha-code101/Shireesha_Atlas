@@ -1,43 +1,18 @@
-import java.util.Scanner;
+package Arrays;
 
-public class LoginSystem {
+public class Demo01 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        // Predefined login credentials
-        String correctLoginId = "Prasunamba";
-        String correctPwd = "12345867";
-
-        // Variable to count login attempts
-        int count = 0;
-
-        // Loop to allow multiple login attempts
-        while (true) {
-            // Prompt user for login credentials
-            System.out.println("Enter your login ID:");
-            String loginId = sc.nextLine();
-            System.out.println("Enter your password:");
-            String pwd = sc.nextLine();
-
-            // Check if entered credentials match predefined ones
-            if (loginId.equals(correctLoginId) && pwd.equals(correctPwd)) {
-                count++;
-                System.out.println("You have logged in " + count + " times.");
-            } else {
-                System.out.println("Invalid login ID or password.");
-            }
-
-            // Ask user if they want to try logging in again
-            System.out.println("Do you want to try again? (yes/no):");
-            String response = sc.nextLine();
-            if (!response.equalsIgnoreCase("yes")) {
-                break;
-            }
-        }
-
-        // Close the scanner to release resources
-        sc.close();
-        System.out.println("Thank you for using the login system.");
+        char[] arr = {'a', 'e', 'i', 'o', 'u'};
+        System.out.println(arr);
+        
+        String[] names = {"Meena", "Tina", "Veena", "Heena"};
+        System.out.println(names[0]);
+        
+        names[1] = "Reena";
+        System.out.println(names[1]);
+        
+        System.out.println(names.length);
+        
+        System.out.println(names[4]); // This line will cause an exception
     }
 }
-

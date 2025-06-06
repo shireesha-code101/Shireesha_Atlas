@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class task012 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String correctLoginId = "Prasunamba";
+        String correctLoginId = "Shireesha";
         String correctPwd = "12345867";
         int count = 0;
 

@@ -1,53 +1,39 @@
-unix is great os. unix was developed in Bell labs.
-learn operating system.
-Unix linux which one you choose.
-uNix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.
 
-db.orders.insertMany( [
-  { _id: 0, name: "Pepperoni", size: "small", price: 19,
-    quantity: 10, date: ISODate( "2021-03-13T08:14:30Z" ) },
-  { _id: 1, name: "Pepperoni", size: "medium", price: 20,
-    quantity: 20, date : ISODate( "2021-03-13T09:13:24Z" ) },
-  { _id: 2, name: "Pepperoni", size: "large", price: 21,
-    quantity: 30, date : ISODate( "2021-03-17T09:22:12Z" ) },
-  { _id: 3, name: "Cheese", size: "small", price: 12,
-    quantity: 15, date : ISODate( "2021-03-13T11:21:39.736Z" ) },
-  { _id: 4, name: "Cheese", size: "medium", price: 13,
-    quantity:50, date : ISODate( "2022-01-12T21:23:13.331Z" ) },
-  { _id: 5, name: "Cheese", size: "large", price: 14,
-    quantity: 10, date : ISODate( "2022-01-12T05:08:13Z" ) },
-  { _id: 6, name: "Vegan", size: "small", price: 17,
-    quantity: 10, date : ISODate( "2021-01-13T05:08:13Z" ) },
-  { _id: 7, name: "Vegan", size: "medium", price: 18,
-    quantity: 10, date : ISODate( "2021-01-13T05:10:13Z" ) }
-] )
+   
+public class SimpleCalculator {
 
+    // Method to add two numbers
+    public static int add(int a, int b) {
+        return a + b;
+    }
 
-db.aggregateproduct.insertMany( [
-   { product: "register", quantity: 25, size: { height: 14, weight: 21, unit: "cm" }, status: "A" },
-   { product: "book", quantity: 50, size: { height: 8.5, weight: 11, unit: "in" }, status: "A" },
-   { product: "sheet", quantity: 100, size: { height: 8.5, weight: 11, unit: "in" }, status: "D" },
-   { product: "timetable", quantity: 75, size: { height: 22.85, weight: 30, unit: "cm" }, status: "D" },
-   { product: "envelop", quantity: 45, size: { height: 10, weight: 15.25, unit: "cm" }, status: "A" },
-   { product: "register", quantity: 25, size: { height: 14, weight: 21, unit: "cm" }, status: "A" },
-   { product: "book", quantity: 50, size: { height: 8.5, weight: 11, unit: "in" }, status: "A" },
-   { product: "sheet", quantity: 100, size: { height: 8.5, weight: 11, unit: "in" }, status: "D" },
-   { product: "timetable", quantity: 75, size: { height: 22.85, weight: 30, unit: "cm" }, status: "D" },
-   { product: "envelop", quantity: 45, size: { height: 10, weight: 15.25, unit: "cm" }, status: "A" },
-   { product: "register", quantity: 25, size: { height: 14, weight: 21, unit: "cm" }, status: "A" },
-   { product: "book", quantity: 50, size: { height: 8.5, weight: 11, unit: "in" }, status: "A" }
-]);
+    // Method to subtract two numbers
+    public static int subtract(int a, int b) {
+        return a - b;
+    }
 
+    // Method to multiply two numbers
+    public static int multiply(int a, int b) {
+        return a * b;
+    }
 
-> db.aggregateproduct.aggregate([
-...    { $project : { product : 1,quantity : 1 } } ,
-...    { $group: { _id: "$product", total: { $sum: "$quantity" } } },
-...    {$sort : { total : 1 }
-...    }
-... ])
+    // Method to divide two numbers
+    public static int divide(int a, int b) {
+        if (b != 0) {
+            return a / b;
+        } else {
+            System.out.println("Error: Division by zero");
+            return 0;
+        }
+    }
 
-db.aggregateproduct.aggregate([{ $group: { _id: "$product", total: { $sum: "$quantity" } } }, { $sort: { total: 1 } }] )
+    public static void main(String[] args) {
+        int num1 = 20;
+        int num2 = 5;
 
-
-
-
+        System.out.println("Addition: " + add(num1, num2));
+        System.out.println("Subtraction: " + subtract(num1, num2));
+        System.out.println("Multiplication: " + multiply(num1, num2));
+        System.out.println("Division: " + divide(num1, num2));
+    }
+}

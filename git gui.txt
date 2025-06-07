@@ -1,55 +1,72 @@
-class Employee {
-    private int pwd;
-    protected int salary;
-    public int empid;
+/* File name : AbstractDemo.java */
+public class AbstractDemo {
 
-
-    Employee() {
-        System.out.println("Employee constructor called");
-    }
+   public static void main(String [] args) {
+      Employee e = new SalaryEmployee("George W.", "Houston, TX", 43, 60000.0);
+      System.out.println("\nCall mailCheck using Employee reference--");
+      e.mailCheck();
+   }
 }
 
-class task037 extends Employee {
+abstract class Employee {
+   private String name;
+   private String address;
+   private int number;
 
-    task037() {
-        super(); // Call parent constructor
-      
-        salary = 50000;      // ✅ protected: accessible in child class
-        empid = 10001;       // ✅ public: accessible everywhere
-    }
+   public Employee(String name, String address, int number) {
+      System.out.println("Constructing an Employee");
+      this.name = name;
+      this.address = address;
+      this.number = number;
+   }
+   
+   public double computePay() {
+     System.out.println("Inside Employee computePay");
+     return 0.0;
+   }
+   
+   public void mailCheck() {
+      System.out.println("Mailing a check to " + this.name + " " + this.address);
+   }
 
-    public static void main(String[] args) {
-        task037 obj = new task037();
-        System.out.println("Salary: " + obj.salary);
-        System.out.println("Emp ID: " + obj.empid);
-    }
+   public String toString() {
+      return name + " " + address + " " + number;
+   }
+
+   public String getName() {
+      return name;
+   }
+ 
+   public String getAddress() {
+      return address;
+   }
+   
+   public void setAddress(String newAddress) {
+      address = newAddress;
+   }
+ 
+   public int getNumber() {
+      return number;
+   }
 }
 
+// ✅ Concrete subclass of Employee
+class SalaryEmployee extends Employee {
+   private double salary;
 
-class Employee {
-    private int pwd;
-    protected int salary;
-    public int empid;
+   public SalaryEmployee(String name, String address, int number, double salary) {
+      super(name, address, number);
+      this.salary = salary;
+   }
 
+   @Override
+   public double computePay() {
+      System.out.println("Computing salary pay for " + getName());
+      return salary / 12;
+   }
 
-    Employee() {
-        System.out.println("Employee constructor called");
-    }
+   @Override
+   public void mailCheck() {
+      System.out.println("Mailing check to " + getName() + " with salary: " + salary);
+   }
 }
-
-class task037 extends Employee {
-
-    task037() {
-        super(); // Call parent constructor
-        pwd = 123;
-        salary = 50000;      // ✅ protected: accessible in child class
-        empid = 10001;       // ✅ public: accessible everywhere
-    }
-
-    public static void main(String[] args) {
-        task037 obj = new task037();
-        System.out.println("Salary: " + obj.salary);
-        System.out.println("Emp ID: " + obj.empid);
-    }
-}
-

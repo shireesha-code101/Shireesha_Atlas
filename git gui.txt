@@ -1,47 +1,55 @@
-// no.of parameters
- 
-public class Task034{
-    void add(int x, int y){
-        System.out.println(x+ " &&& "+ y);
-    }
-    void add(int x, int y, int z ){
-        System.out.println(x + " $$$ "+ y+ " $$$"+ z);
-    }
-    public static void main(String[] args){
-        Task034 tobj = new Task034();
-        add(10,20);
-        add(100,200,300);
+class Employee {
+    private int pwd;
+    protected int salary;
+    public int empid;
+
+
+    Employee() {
+        System.out.println("Employee constructor called");
     }
 }
- 
-public class Task035 {
- 
-    void add(char x, char y) {
-        System.out.println("x: " + x + ", y: " + y);
+
+class task037 extends Employee {
+
+    task037() {
+        super(); // Call parent constructor
+      
+        salary = 50000;      // ✅ protected: accessible in child class
+        empid = 10001;       // ✅ public: accessible everywhere
     }
-        
-    void add(int x, int y) {
-        System.out.println("x: " + x + ", y: " + y);
-    }
-    
+
     public static void main(String[] args) {
-        Task035 task = new Task035();
-        task.add('d', 'a');
-        task.add(100, 100);
-    }
-    
-    
-}
- 
- public class Task035{
-    void add(int x, int y){
-        System.out.println(x + " %%%% "+ y);
-    }
-    void add(char x, char y){
-        System.out.println(x + " ###### "+ y);
-    }
-    public static void main(String[] args){
-        add(10,50);
-        add('R', 'R');
+        task037 obj = new task037();
+        System.out.println("Salary: " + obj.salary);
+        System.out.println("Emp ID: " + obj.empid);
     }
 }
+
+
+class Employee {
+    private int pwd;
+    protected int salary;
+    public int empid;
+
+
+    Employee() {
+        System.out.println("Employee constructor called");
+    }
+}
+
+class task037 extends Employee {
+
+    task037() {
+        super(); // Call parent constructor
+        pwd = 123;
+        salary = 50000;      // ✅ protected: accessible in child class
+        empid = 10001;       // ✅ public: accessible everywhere
+    }
+
+    public static void main(String[] args) {
+        task037 obj = new task037();
+        System.out.println("Salary: " + obj.salary);
+        System.out.println("Emp ID: " + obj.empid);
+    }
+}
+

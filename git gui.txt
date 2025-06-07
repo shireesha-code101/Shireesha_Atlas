@@ -1,21 +1,21 @@
-public class person {
-
-    private String name;
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public String getName() {
-        return name;
-
-    }
+public class NameArray {
     public static void main(String[] args) {
-        person s = new person();
+        // Initialize the character array with your name
+        char[] name = {'P', 'r', 'a', 'd', 'y', 'u', 't'};
 
-        s.setName("Siri");
+        // Print the character array
+        System.out.println(name);
 
-        System.out.println("Name: " + s.getName());
+        // Calculate the length of the name
+        int n = name.length;
+
+        // Display the number of letters in the name
+        System.out.println("There are " + n + " letters in my name.");
+
+        // Traverse the array and print each character
+        System.out.print("Each letter in my name: ");
+        for (int i = 0; i < n; i++) {
+            System.out.print(name[i] + " ");
+        }
     }
 }

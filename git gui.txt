@@ -1,16 +1,43 @@
-import java.util.*;
-class Main {
-    public static void main(String[] args) {
-        int[] ar1 = {1,2,3};
-        int[] ar2 = {1,2,3};
-        int[][] arr = {ar1,ar2};
-        // int[][] arr3 = arr.clone();
-        int[][] arr3 =Arrays.copyOf(arr);
-        System.out.println(arr3[0]);
-        System.out.println(arr[0]);
-        System.out.println(arr3[0]==arr[0]);
-        ar1[0] = 4;
-        System.out.println(arr[0][0]);
-        System.out.println(arr3[0][0]);
-    }
+class Calculation {
+   int z;
+	
+   public void addition(int x, int y) {
+      z = x + y;
+      System.out.println("The sum of the given numbers:"+z);
+   }
+	
+   public void Subtraction(int x, int y) {
+      z = x - y;
+      System.out.println("The difference between the given numbers:"+z);
+   }
+}
+
+public class My_Calculation extends Calculation {
+   public void multiplication(int x, int y) {
+      z = x * y;
+      System.out.println("The product of the given numbers:"+z);
+   }
+	
+   public static void main(String args[]) {
+      int a = 20, b = 10;
+      My_Calculation demo = new My_Calculation();
+      demo.addition(a, b);
+      demo.Subtraction(a, b);
+      demo.multiplication(a, b);
+   }
+}
+
+public class My_Calculation2 extends Calculation {
+   public void multiplication(int x, int y) {
+      z = x * y;
+      System.out.println("The product of the given numbers:"+z);
+   }
+	
+   public static void main(String args[]) {
+      int a = 20, b = 10;
+      My_Calculation2 demo = new My_Calculation2();
+      demo.addition(a, b);
+      demo.Subtraction(a, b);
+      demo.multiplication(a, b);
+   }
 }

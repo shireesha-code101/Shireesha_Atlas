@@ -1,156 +1,18 @@
-/* File name : AbstractDemo.java */
-public class AbstractDemo {
-
-   public static void main(String [] args) {
-      Employee e = new SalaryEmployee("George W.", "Houston, TX", 43, 60000.0);
-      System.out.println("\nCall mailCheck using Employee reference--");
-      e.mailCheck();
-   }
+interface testInterface {
+    final int tax = 10; // Implicitly public static final
+    void display();
 }
 
-abstract class Employee {
-   private String name;
-   private String address;
-   private int number;
-
-   public Employee(String name, String address, int number) {
-      System.out.println("Constructing an Employee");
-      this.name = name;
-      this.address = address;
-      this.number = number;
-   }
-   
-   public double computePay() {
-     System.out.println("Inside Employee computePay");
-     return 0.0;
-   }
-   
-   public void mailCheck() {
-      System.out.println("Mailing a check to " + this.name + " " + this.address);
-   }
-
-   public String toString() {
-      return name + " " + address + " " + number;
-   }
-
-   public String getName() {
-      return name;
-   }
- 
-   public String getAddress() {
-      return address;
-   }
-   
-   public void setAddress(String newAddress) {
-      address = newAddress;
-   }
- 
-   public int getNumber() {
-      return number;
-   }
-}
-
-// ✅ Concrete subclass of Employee
-class SalaryEmployee extends Employee {
-   private double salary;
-
-   public SalaryEmployee(String name, String address, int number, double salary) {
-      super(name, address, number);
-      this.salary = salary;
-   }
-
-   @Override
-   public double computePay() {
-      System.out.println("Computing salary pay for " + getName());
-      return salary / 12;
-   }
-
-
-
-
-
-
-
-// Abstract class
-abstract class Gadgets {
-    abstract void turnOn();
-    abstract void turnOff();
-}
-
-// Concrete subclasses
-class TVRemote extends Gadgets {
-    @Override
-    void turnOn() {
-        System.out.println("TV is turned ON.");
-    }
-
-    @Override
-    void turnOff() {
-        System.out.println("TV is turned OFF.");
+class TestClass implements testInterface {
+    public void display() {
+        System.out.println("Myclass");
     }
 }
 
-class ACRemote extends Gadgets {
-    @Override
-    void turnOn() {
-        System.out.println("AC is turned ON.");
-    }
-
-    @Override
-    void turnOff() {
-        System.out.println("AC is turned OFF.");
-    }
-}
-
-class FanRemote extends Gadgets {
-    @Override
-    void turnOn() {
-        System.out.println("Fan is turned ON.");
-    }
-
-    @Override
-    void turnOff() {
-        System.out.println("Fan is turned OFF.");
-    }
-}
-
-class CoolerRemote extends Gadgets {
-    @Override
-    void turnOn() {
-        System.out.println("Cooler is turned ON.");
-    }
-
-    @Override
-    void turnOff() {
-        System.out.println("Cooler is turned OFF.");
-    }
-}
-
-// Main class to demonstrate abstraction
-public class Main {
+class Myclass {
     public static void main(String[] args) {
-        Gadgets tv = new TVRemote();
-        Gadgets ac = new ACRemote();
-        Gadgets fan = new FanRemote();
-        Gadgets cooler = new CoolerRemote();
-
-        // Call methods for each gadget
-        tv.turnOn();
-        tv.turnOff();
-
-        ac.turnOn();
-        ac.turnOff();
-
-        fan.turnOn();
-        fan.turnOff();
-
-        cooler.turnOn();
-        cooler.turnOff();
+        TestClass t = new TestClass();
+        t.display();
+        System.out.println(t.tax); // Accessing the constant
     }
-}
-
-   @Override
-   public void mailCheck() {
-      System.out.println("Mailing check to " + getName() + " with salary: " + salary);
-   }
 }

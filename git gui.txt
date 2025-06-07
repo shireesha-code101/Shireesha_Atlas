@@ -1,43 +1,39 @@
-class Calculation {
-   int z;
-	
-   public void addition(int x, int y) {
-      z = x + y;
-      System.out.println("The sum of the given numbers:"+z);
-   }
-	
-   public void Subtraction(int x, int y) {
-      z = x - y;
-      System.out.println("The difference between the given numbers:"+z);
-   }
+class Customer {
+    // Declare instance variables (accessible by child classes)
+    int cost = 40;
+    String items = "Tomatoes";
+
+    void purchaseList() {
+        System.out.println("Purchased item: " + items);
+        System.out.println("Cost: " + cost);
+    }
 }
 
-public class My_Calculation extends Calculation {
-   public void multiplication(int x, int y) {
-      z = x * y;
-      System.out.println("The product of the given numbers:"+z);
-   }
-	
-   public static void main(String args[]) {
-      int a = 20, b = 10;
-      My_Calculation demo = new My_Calculation();
-      demo.addition(a, b);
-      demo.Subtraction(a, b);
-      demo.multiplication(a, b);
-   }
-}
+public class Mart extends Customer {
+    // Overriding values
+    int cost = 30;
+    String items = "Onions";
 
-public class My_Calculation2 extends Calculation {
-   public void multiplication(int x, int y) {
-      z = x * y;
-      System.out.println("The product of the given numbers:"+z);
-   }
-	
-   public static void main(String args[]) {
-      int a = 20, b = 10;
-      My_Calculation2 demo = new My_Calculation2();
-      demo.addition(a, b);
-      demo.Subtraction(a, b);
-      demo.multiplication(a, b);
-   }
+    void billing() {
+        System.out.println("Billing item: " + items);
+        System.out.println("Cost: " + cost);
+    }
+
+    public static void main(String[] args) {
+        Mart mart = new Mart();
+
+        // Accessing child class fields
+        System.out.println("Items: " + mart.items);  // Onions
+        System.out.println("Cost: " + mart.cost);    // 30
+
+        System.out.println("%%%%%%%%%%%%%%");
+
+        // Accessing parent class fields via super
+        System.out.println("Super items: " + ((Customer)mart).items);  // Tomatoes
+        System.out.println("Super cost: " + ((Customer)mart).cost);    // 40
+
+        // Or access using super inside Mart methods
+        mart.purchaseList();  // From Customer
+        mart.billing();       // From Mart
+    }
 }

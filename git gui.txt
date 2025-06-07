@@ -1,39 +1,36 @@
-class Customer {
-    // Declare instance variables (accessible by child classes)
+  class Customer{
     int cost = 40;
     String items = "Tomatoes";
-
-    void purchaseList() {
-        System.out.println("Purchased item: " + items);
-        System.out.println("Cost: " + cost);
+    Customer(){
+        System.out.println("Constructor called");
+    }
+    void purchage_list(){
+        System.out.println("cost of tomatoes in Customer class is "+ cost);
     }
 }
-
-public class Mart extends Customer {
-    // Overriding values
-    int cost = 30;
-    String items = "Onions";
-
-    void billing() {
-        System.out.println("Billing item: " + items);
-        System.out.println("Cost: " + cost);
+public class Task033 extends Customer {
+   
+    void billing(){
+        String items = "onions";
+        int cost = 30;
+ 
+        super.items = "Potatoes";  
+        super.cost = 50;
+        super.purchage_list();
+       
+        System.out.println(items);
+        System.out.println(cost);
+        System.out.println("***************************");
+        System.out.println(super.items);
+        System.out.println(super.cost);
+        // return 0;
     }
-
-    public static void main(String[] args) {
-        Mart mart = new Mart();
-
-        // Accessing child class fields
-        System.out.println("Items: " + mart.items);  // Onions
-        System.out.println("Cost: " + mart.cost);    // 30
-
-        System.out.println("%%%%%%%%%%%%%%");
-
-        // Accessing parent class fields via super
-        System.out.println("Super items: " + ((Customer)mart).items);  // Tomatoes
-        System.out.println("Super cost: " + ((Customer)mart).cost);    // 40
-
-        // Or access using super inside Mart methods
-        mart.purchaseList();  // From Customer
-        mart.billing();       // From Mart
+    public static void main(String[] args){    
+        Customer cobj =new Customer();
+        cobj.purchage_list();
+        Task033 tobj = new Task033();
+        tobj.billing();    
+       
     }
+ 
 }

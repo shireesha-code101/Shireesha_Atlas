@@ -1,18 +1,30 @@
-interface testInterface {
-    final int tax = 10; // Implicitly public static final
-    void display();
-}
-
-class TestClass implements testInterface {
-    public void display() {
-        System.out.println("Myclass");
-    }
-}
-
-class Myclass {
+class Geeks {
     public static void main(String[] args) {
-        TestClass t = new TestClass();
-        t.display();
-        System.out.println(t.tax); // Accessing the constant
+        int n = 10;
+        int m = 0;
+
+        try {
+            // This may throw ArithmeticException
+            int ans = n / m;
+            System.out.println("Answer: " + ans);
+        }
+        catch (ArithmeticException e) {
+            // First-level handling
+            System.out.println("Error: Division by zero is not allowed!");
+
+            // If you want to do recovery or fallback logic that might also fail,
+            // you can nest another try-catch here:
+            try {
+                int fallback = n / (m + 1);  // safe operation
+                System.out.println("Fallback result: " + fallback);
+            }
+            catch (ArithmeticException e2) {
+                // Second-level handling if recovery failed
+                System.out.println("Error during fallback: still division by zero!");
+            }
+        }
+        finally {
+            System.out.println("Program continues after handling the exception.");
+        }
     }
 }

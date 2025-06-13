@@ -1,21 +1,20 @@
 public class ExcepTest {
 
-    public static void main(String args[]) {
-        try {
-            int a[] = new int[2];      // array of size 2 (indexes 0 and 1)
+   public static void main(String args[]) {
+      try {
+         int a[] = new int[2];
+        System.out.println("Access element three :" + a[2]);
+         try {
             int b = 0;
-            int c = 1 / b;            // triggers ArithmeticException
-            System.out.println("Access element three :" + a[3]); 
-        }
-        catch (ArithmeticException e) {
-            System.out.println("ArithmeticException thrown  :" + e);
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("ArrayIndexOutOfBoundsException thrown  :" + e);
-        }
-        catch (Exception e) {
-            System.out.println("Exception thrown  :" + e);
-        }
-        System.out.println("Out of the block");
-    }
+            int c = 1/b;
+         }catch(Exception e) {
+            System.out.println("Exception thrown: " + e);
+         }
+         System.out.println("Access element three :" + a[3]);
+      }
+      catch (ArrayIndexOutOfBoundsException e) {
+         System.out.println("Exception thrown: " + e);
+      }
+      System.out.println("Out of the block");
+   }
 }

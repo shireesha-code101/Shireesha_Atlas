@@ -1,20 +1,40 @@
-public class ExcepTest {
+public class ExceptionDemo {
 
-   public static void main(String args[]) {
-      try {
-         int a[] = new int[2];
-        System.out.println("Access element three :" + a[2]);
-         try {
-            int b = 0;
-            int c = 1/b;
-         }catch(Exception e) {
-            System.out.println("Exception thrown: " + e);
-         }
-         System.out.println("Access element three :" + a[3]);
-      }
-      catch (ArrayIndexOutOfBoundsException e) {
-         System.out.println("Exception thrown: " + e);
-      }
-      System.out.println("Out of the block");
-   }
+    // Method that throws a general Exception
+    static void divide() throws Exception {
+        throw new Exception("Division error occurred.");
+    }
+
+    // Method that throws ArrayIndexOutOfBoundsException
+    static void arr2() throws ArrayIndexOutOfBoundsException {
+        int[] array = new int[5];
+        // Intentionally accessing out-of-bounds index to trigger exception
+        int value = array[10];
+    }
+
+    // Another method that throws ArrayIndexOutOfBoundsException
+    static void arr3() throws ArrayIndexOutOfBoundsException {
+        int[] array = new int[3];
+        // Intentionally accessing out-of-bounds index to trigger exception
+        int value = array[5];
+    }
+
+    // Method that throws a general Exception
+    static void method3() throws Exception {
+        throw new Exception("General exception in method3.");
+    }
+
+    // Main method demonstrating try-catch-finally blocks
+    public static void main(String[] args) {
+        try {
+            divide();
+            arr2();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Caught ArrayIndexOutOfBoundsException: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Caught Exception: " + e.getMessage());
+        } finally {
+            System.out.println("Finally block executed.");
+        }
+    }
 }

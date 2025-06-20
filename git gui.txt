@@ -1,30 +1,58 @@
-class RunnableDemo implements Runnable {
-    private Thread t;
-    private String threadName;
+package com.elibrary.inventory;
 
-    RunnableDemo(String name) {
-        threadName = name;
-        System.out.println("Creating " + threadName);
-    }
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Iterator;
 
-    public void run() {
-        System.out.println("Running " + threadName);
-        try {
-            for (int i = 4; i > 0; i--) {
-                System.out.println("Thread: " + threadName + ", " + i);
-                Thread.sleep(5000); // Pause for 5 seconds
+import com.elibrary.exception.ISBNAlreadyExistsException;
+import com.elibrary.models.Book;
+
+public class Inventory {
+
+    private List<Book> books = new ArrayList<>();
+
+    public void addBook(Book book) throws ISBNAlreadyExistsException {
+        for (Book existingBook : books) {
+            if (existingBook.getIsbn().equals(book.getIsbn())) {
+                throw new ISBNAlreadyExistsException("Book with the same ISBN already exists.");
             }
-        } catch (InterruptedException e) {
-            System.out.println("Thread " + threadName + " interrupted.");
         }
-        System.out.println("Thread " + threadName + " exiting.");
+        books.add(book);
+        System.out.println("Book added successfully.");
     }
 
-    public void start() {
-        System.out.println("Starting " + threadName);
-        if (t == null) {
-            t = new Thread(this, threadName);
-            t.start();
+    public Optional<Book> getBookByName(String name) {
+        for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(name)) {
+                return Optional.of(book);
+            }
         }
+        return Optional.empty();
+    }
+
+    public Book updateBook(Book updatedBook) {
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getIsbn().equals(updatedBook.getIsbn())) {
+                books.set(i, updatedBook);
+                System.out.println("Book updated successfully.");
+                return updatedBook;
+            }
+        }
+        System.out.println("Book not found for update.");
+        return null;
+    }
+
+    public List<Book> getAllBooks() {
+        return new ArrayList<>(books);
+    }
+
+    public boolean isBookAvailable(String isbn) {
+        for (Book book : books) {
+            if (book.getIsbn().equals(isbn)) {
+                return book.isAvailable();
+            }
+        }
+        return false;
     }
 }

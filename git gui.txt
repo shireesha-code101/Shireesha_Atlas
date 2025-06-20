@@ -1,39 +1,37 @@
-class Counter {
-    private static int count = 0;
+class Resource {
+    void method(Resource r1, Resource r2) {
+        // Always lock in a consistent order to prevent deadlock
+        synchronized (r1) {
+            System.out.println(Thread.currentThread().getName() + " locked " + r1);
+            try { Thread.sleep(100); } catch (InterruptedException e) {}
 
-    public static synchronized void increment() {
-        count++;
-    }
-
-    public static int getCount() {
-        return count;
-    }
-}
-
-class CounterThread extends Thread {
-    @Override
-    public void run() {
-        for (int i = 0; i < 1000; i++) {
-            Counter.increment();
+            synchronized (r2) {
+                System.out.println(Thread.currentThread().getName() + " locked " + r2);
+                System.out.println(Thread.currentThread().getName() + " is executing critical section");
+            }
         }
     }
+
+    @Override
+    public String toString() {
+        return "Resource@" + Integer.toHexString(hashCode());
+    }
 }
 
-public class Main {
+public class DeadlockFreeExample {
     public static void main(String[] args) {
-        CounterThread t1 = new CounterThread();
-        CounterThread t2 = new CounterThread();
+        final Resource r1 = new Resource();
+        final Resource r2 = new Resource();
+
+        Thread t1 = new Thread(() -> {
+            new Resource().method(r1, r2);
+        }, "Thread-1");
+
+        Thread t2 = new Thread(() -> {
+            new Resource().method(r1, r2); // Notice: same order r1, r2
+        }, "Thread-2");
 
         t1.start();
         t2.start();
-
-        try {
-            t1.join(); // wait for t1 to finish
-            t2.join(); // wait for t2 to finish
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("Final count: " + Counter.getCount());
     }
 }

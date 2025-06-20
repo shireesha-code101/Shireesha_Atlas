@@ -1,44 +1,45 @@
-// Counter.java
-public class Counter {
+class Counter {
     private int count = 0;
 
-    public synchronized void increment() {
+    public void increment() {
         count++;
     }
 
-    public synchronized int getCount() {
+    public int getCount() {
         return count;
     }
 }
 
-// ThreadDemo.java
-public class ThreadDemo extends Thread {
-    private final Counter counter;
+class ThreadDemo2 extends Thread {
+    Counter counter;
 
-    public ThreadDemo(Counter counter) {
+    ThreadDemo2(Counter counter) {
         this.counter = counter;
     }
 
-    @Override
     public void run() {
         for (int i = 0; i < 10; i++) {
             counter.increment();
+            System.out.println(i);
         }
     }
 }
 
-// Main.java
-public class Main {
-    public static void main(String[] args) throws InterruptedException {
+public class task005 {
+    public static void main(String[] args) {
         Counter counter = new Counter();
-        ThreadDemo t1 = new ThreadDemo(counter);
-        ThreadDemo t2 = new ThreadDemo(counter);
+        ThreadDemo2 t1 = new ThreadDemo2(counter);
+        ThreadDemo2 t2 = new ThreadDemo2(counter);
 
         t1.start();
         t2.start();
 
-        t1.join();
-        t2.join();
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("Final count: " + counter.getCount());
     }

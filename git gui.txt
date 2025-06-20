@@ -1,159 +1,30 @@
-com.uit.training.elibrary
-├── controllers
-│   └── LibraryApp.java
-├── exception
-│   ├── ISBNAlreadyExistsException.java
-│   ├── ISBNDoesNotExistsException.java
-│   └── BookAlreadyIssuedException.java
-└── model
-    └── Book.java
+class RunnableDemo implements Runnable {
+    private Thread t;
+    private String threadName;
 
-// File: ISBNAlreadyExistsException.java
-package com.uit.training.elibrary.exception;
-
-public class ISBNAlreadyExistsException extends Exception {
-    public ISBNAlreadyExistsException(String isbn) {
-        super("The ISBN " + isbn + " already exists");
-    }
-}
-
-// File: ISBNDoesNotExistsException.java
-package com.uit.training.elibrary.exception;
-
-public class ISBNDoesNotExistsException extends Exception {
-    public ISBNDoesNotExistsException(String isbn) {
-        super("ISBN " + isbn + " does not exist");
-    }
-}
-
-// File: BookAlreadyIssuedException.java
-package com.uit.training.elibrary.exception;
-
-public class BookAlreadyIssuedException extends Exception {
-    public BookAlreadyIssuedException(String message) {
-        super(message);
-    }
-}
-// File: Book.java
-package com.uit.training.elibrary.model;
-
-public class Book {
-    private String isbn;
-    private String title;
-    private boolean issued;
-
-    public Book(String isbn, String title) {
-        this.isbn = isbn;
-        this.title = title;
-        this.issued = false;
+    RunnableDemo(String name) {
+        threadName = name;
+        System.out.println("Creating " + threadName);
     }
 
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public boolean isIssued() {
-        return issued;
-    }
-
-    public void issue() {
-        this.issued = true;
-    }
-}
-
-// File: LibraryApp.java
-package com.uit.training.elibrary.controllers;
-
-import com.uit.training.elibrary.exception.*;
-import com.uit.training.elibrary.model.Book;
-
-import java.util.*;
-
-public class LibraryApp {
-
-    private static Map<String, Book> library = new HashMap<>();
-    private static Scanner sc = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        while (true) {
-            System.out.println("\n--- E-Library Console ---");
-            System.out.println("1. Add Book");
-            System.out.println("2. Issue Book");
-            System.out.println("3. View All Books");
-            System.out.println("4. Exit");
-            System.out.print("Enter choice: ");
-
-            int choice = sc.nextInt();
-            sc.nextLine(); // Consume newline
-
-            try {
-                switch (choice) {
-                    case 1:
-                        addBook();
-                        break;
-                    case 2:
-                        issueBook();
-                        break;
-                    case 3:
-                        viewBooks();
-                        break;
-                    case 4:
-                        System.out.println("Exiting...");
-                        return;
-                    default:
-                        System.out.println("Invalid choice.");
-                }
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+    public void run() {
+        System.out.println("Running " + threadName);
+        try {
+            for (int i = 4; i > 0; i--) {
+                System.out.println("Thread: " + threadName + ", " + i);
+                Thread.sleep(5000); // Pause for 5 seconds
             }
+        } catch (InterruptedException e) {
+            System.out.println("Thread " + threadName + " interrupted.");
         }
+        System.out.println("Thread " + threadName + " exiting.");
     }
 
-    private static void addBook() throws ISBNAlreadyExistsException {
-        System.out.print("Enter ISBN: ");
-        String isbn = sc.nextLine();
-        if (library.containsKey(isbn)) {
-            throw new ISBNAlreadyExistsException(isbn);
-        }
-
-        System.out.print("Enter Title: ");
-        String title = sc.nextLine();
-        Book book = new Book(isbn, title);
-        library.put(isbn, book);
-        System.out.println("Book added successfully!");
-    }
-
-    private static void issueBook() throws ISBNDoesNotExistsException, BookAlreadyIssuedException {
-        System.out.print("Enter ISBN to issue: ");
-        String isbn = sc.nextLine();
-
-        if (!library.containsKey(isbn)) {
-            throw new ISBNDoesNotExistsException(isbn);
-        }
-
-        Book book = library.get(isbn);
-        if (book.isIssued()) {
-            throw new BookAlreadyIssuedException("The book is already issued");
-        }
-
-        book.issue();
-        System.out.println("Book issued successfully!");
-    }
-
-    private static void viewBooks() {
-        if (library.isEmpty()) {
-            System.out.println("Library is empty.");
-            return;
-        }
-        System.out.println("\nLibrary Inventory:");
-        for (Book book : library.values()) {
-            System.out.println("ISBN: " + book.getIsbn() +
-                    ", Title: " + book.getTitle() +
-                    ", Issued: " + (book.isIssued() ? "Yes" : "No"));
+    public void start() {
+        System.out.println("Starting " + threadName);
+        if (t == null) {
+            t = new Thread(this, threadName);
+            t.start();
         }
     }
 }

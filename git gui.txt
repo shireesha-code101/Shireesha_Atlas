@@ -1,30 +1,45 @@
-class ThreadDemo extends Thread {
-    public ThreadDemo(String name) {
-        super(name);
-        System.out.println("Creating " + getName());
+// Counter.java
+public class Counter {
+    private int count = 0;
+
+    public synchronized void increment() {
+        count++;
+    }
+
+    public synchronized int getCount() {
+        return count;
+    }
+}
+
+// ThreadDemo.java
+public class ThreadDemo extends Thread {
+    private final Counter counter;
+
+    public ThreadDemo(Counter counter) {
+        this.counter = counter;
     }
 
     @Override
     public void run() {
-        System.out.println("Running " + getName());
-        for (int i = 4; i > 0; i--) {
-            System.out.println("Thread: " + getName() + ", " + i);
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                System.out.println("Thread " + getName() + " interrupted.");
-            }
+        for (int i = 0; i < 10; i++) {
+            counter.increment();
         }
-        System.out.println("Thread " + getName() + " exiting.");
     }
 }
 
-public class TestThread {
-    public static void main(String[] args) {
-        ThreadDemo t1 = new ThreadDemo("Thread-1");
-        t1.start();
+// Main.java
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Counter counter = new Counter();
+        ThreadDemo t1 = new ThreadDemo(counter);
+        ThreadDemo t2 = new ThreadDemo(counter);
 
-        ThreadDemo t2 = new ThreadDemo("Thread-2");
+        t1.start();
         t2.start();
+
+        t1.join();
+        t2.join();
+
+        System.out.println("Final count: " + counter.getCount());
     }
 }

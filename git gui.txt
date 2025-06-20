@@ -1,154 +1,41 @@
-package com.elibrary.app;
+class RunnableDemo implements Runnable {
+    private Thread t;
+    private String threadName;
 
-import com.elibrary.exception.ISBNAlreadyExistsException;
-import com.elibrary.inventory.Inventory;
-import com.elibrary.models.Book;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
-
-public class LibraryManagementApp {
-
-    private static Inventory inventory = new Inventory();
-    private static Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        int choice;
-        do {
-            displayMenu();
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
-
-            switch (choice) {
-                case 1: LibraryManagementApp.addBook(); break;
-                case 2: LibraryManagementApp.getAllBooks(); break;
-                case 3: LibraryManagementApp.getBookByTitle(); break;
-                case 4: LibraryManagementApp.updateBook(); break;
-                case 5: LibraryManagementApp.checkBookAvailability(); break;
-                case 6: System.out.println("Exiting Library Management System. Goodbye!"); break;
-                default: System.out.println("Invalid choice. Please try again.");
-            }
-            System.out.println();
-        } while (choice != 6);
-
-        scanner.close();
+    RunnableDemo(String name) {
+        threadName = name;
+        System.out.println("Creating " + threadName);
     }
 
-    private static void displayMenu() {
-        System.out.println("--- Library Management System ---");
-        System.out.println("1. Add Book");
-        System.out.println("2. Get All Books");
-        System.out.println("3. Get Book by Title");
-        System.out.println("4. Update Book");
-        System.out.println("5. Check Book Availability by ISBN");
-        System.out.println("6. Exit");
-        System.out.println("---------------------------------");
-    }
-
-    private static void addBook() {
-        System.out.print("Enter ISBN: ");
-        String isbn = scanner.nextLine();
-        System.out.print("Enter Title: ");
-        String title = scanner.nextLine();
-        System.out.print("Enter Author: ");
-        String author = scanner.nextLine();
-        System.out.print("Enter Publisher: ");
-        String publisher = scanner.nextLine();
-
-        LocalDate issuedDate = LocalDate.now();
-        LocalDate dueDate = LocalDate.now().plusDays(14);
-        String userName = "N/A";
-        boolean available = true;
-
-        Book newBook = new Book(isbn, title, author, publisher, issuedDate, dueDate, userName, available);
+    public void run() {
+        System.out.println("Running " + threadName);
         try {
-            inventory.addBook(newBook);
-        } catch (ISBNAlreadyExistsException e) {
-            System.out.println("Error: " + e.getMessage());
+            for (int i = 4; i > 0; i--) {
+                System.out.println("Thread: " + threadName + ", " + i);
+                Thread.sleep(500); // Pause for 5 seconds
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Thread " + threadName + " interrupted.");
+        }
+        System.out.println("Thread " + threadName + " exiting.");
+    }
+
+    public void start() {
+        System.out.println("Starting " + threadName);
+        if (t == null) {
+            t = new Thread(this, threadName);
+            t.start();
         }
     }
+}
 
-    private static void getAllBooks() {
-        List<Book> allBooks = inventory.getAllBooks();
-        if (allBooks.isEmpty()) {
-            System.out.println("No books in the inventory.");
-        } else {
-            System.out.println("--- All Books ---");
-            allBooks.forEach(book ->
-                System.out.println("ISBN: " + book.getIsbn() + ", Title: " + book.getTitle() + ", Author: " + book.getAuthor() + ", Available: " + book.isAvailable())
-            );
-        }
-    }
+public class task03{
+    public static void main(String[] args){
+        RunnableDemo R1 = new RunnableDemo("Thread-1");
+        R1.start();
+        RunnableDemo R2 = new RunnableDemo("thread-2");
+        R2.start();
 
-    private static void getBookByTitle() {
-        System.out.print("Enter title of the book to search: ");
-        String title = scanner.nextLine();
-        Optional<Book> bookOptional = inventory.getBookByName(title);
-        bookOptional.ifPresentOrElse(book -> {
-            System.out.println("Book Found:");
-            System.out.println("ISBN: " + book.getIsbn());
-            System.out.println("Title: " + book.getTitle());
-            System.out.println("Author: " + book.getAuthor());
-            System.out.println("Publisher: " + book.getPublisher());
-            System.out.println("Issued Date: " + book.getIssuedDate());
-            System.out.println("Due Date: " + book.getDueDate());
-            System.out.println("User Name: " + book.getUserName());
-            System.out.println("Available: " + book.isAvailable());
-        }, () -> System.out.println("Book with title '" + title + "' not found."));
-    }
 
-    private static void updateBook() {
-        System.out.print("Enter ISBN of the book to update: ");
-        String isbn = scanner.nextLine();
-
-        Optional<Book> existingBookOptional = inventory.getAllBooks().stream()
-                .filter(b -> b.getIsbn().equals(isbn))
-                .findFirst();
-
-        existingBookOptional.ifPresentOrElse(existingBook -> {
-            System.out.println("Enter new details (leave blank to keep current value):");
-
-            System.out.print("New Title (" + existingBook.getTitle() + "): ");
-            String newTitle = scanner.nextLine();
-            if (!newTitle.isEmpty()) {
-                existingBook.setTitle(newTitle);
-            }
-
-            System.out.print("New Author (" + existingBook.getAuthor() + "): ");
-            String newAuthor = scanner.nextLine();
-            if (!newAuthor.isEmpty()) {
-                existingBook.setAuthor(newAuthor);
-            }
-
-            System.out.print("New Publisher (" + existingBook.getPublisher() + "): ");
-            String newPublisher = scanner.nextLine();
-            if (!newPublisher.isEmpty()) {
-                existingBook.setPublisher(newPublisher);
-            }
-
-            System.out.print("Is the book available (true/false) (" + existingBook.isAvailable() + "): ");
-            String newAvailabilityStr = scanner.nextLine();
-            if (!newAvailabilityStr.isEmpty()) {
-                existingBook.setAvailable(Boolean.parseBoolean(newAvailabilityStr));
-            }
-
-            Book updatedBookResult = inventory.updateBook(existingBook);
-            if (updatedBookResult == null) {
-                System.out.println("Failed to update book. This should not happen if book was found initially.");
-            }
-        }, () -> System.out.println("Book with ISBN '" + isbn + "' not found."));
-    }
-
-    private static void checkBookAvailability() {
-        System.out.print("Enter ISBN of the book to check availability: ");
-        String isbn = scanner.nextLine();
-        if (inventory.isBookAvailable(isbn)) {
-            System.out.println("Book with ISBN '" + isbn + "' is available.");
-        } else {
-            System.out.println("Book with ISBN '" + isbn + "' is not available or does not exist.");
-        }
     }
 }

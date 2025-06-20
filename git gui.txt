@@ -1,28 +1,41 @@
-class Resource {
-    synchronized void method1(Resource r) {
-        System.out.println(Thread.currentThread().getName() + " is executing method1");
-        try { Thread.sleep(100); } catch (InterruptedException e) {}
-        r.method2(this);
-        System.out.println(" end of method1");
+class SharedResource {
+    private boolean ready = false;
+
+    synchronized void produce() {
+        try {
+            while (ready) {
+                wait();
+            }
+            System.out.println("Producing...");
+            ready = true;
+            notify();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    synchronized void method2(Resource r) {
-        System.out.println(Thread.currentThread().getName() + " is executing method2");
-        try { Thread.sleep(100); } catch (InterruptedException e) {}
-        r.method1(this);
-        System.out.println(" end of method2");
+    synchronized void consume() {
+        try {
+            while (!ready) {
+                wait();
+            }
+            System.out.println("Consuming...");
+            ready = false;
+            notify();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
 
-public class task010 {
+public class InterThreadCommunicationExample {
     public static void main(String[] args) {
-        final Resource r1 = new Resource();
-        final Resource r2 = new Resource();
+        SharedResource resource = new SharedResource();
 
-        Thread t1 = new Thread(() -> r1.method1(r2), "Thread-1");
-        Thread t2 = new Thread(() -> r2.method1(r1), "Thread-2");
+        Thread producer = new Thread(resource::produce);
+        Thread consumer = new Thread(resource::consume);
 
-        t1.start();
-        t2.start();
+        producer.start();
+        consumer.start();
     }
 }

@@ -1,27 +1,23 @@
-import java.util.*;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
 
-public class task0003
-{
+class CharacterWrite {
     public static void main(String args[]) {
-        FileOutputStream outfile = null;
-//String s=args[0]; // to input string from command line Scanner sc=new Scanner(System.in);
-        Scanner sc = new Scanner(System.in);
-        String s= sc.nextLine();
-        byte b1[] = s.getBytes();
-        try
+        File f1=new File("FileName03.txt");
+        FileWriter fw = null;
+        try {
+            fw=new FileWriter(f1);
+            fw.write("ahmedabad \n");
+            fw.write(" baroda \n");
+            fw.close();
+        }
+        catch(FileNotFoundException e)
         {
-            outfile = new FileOutputStream("FileName02.txt");
-            outfile.write(b1);
+            System.out.println("Sorry..!! File Not Found...!!!");
         }
         catch(IOException e)
         {
-            System.out.println(e);
-            System.exit(-1);
+            System.out.println(e.getMessage());
         }
-        System.out.println("Write Byte");
-        System.out.println("Thank You...!!!");
+        System.out.println("write operation done!!"); 
     }
 }

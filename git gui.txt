@@ -1,20 +1,27 @@
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Scanner;
+import java.util.*;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
-public class WriteByte_1 {
-    public static void main(String[] args) {
+public class task0003
+{
+    public static void main(String args[]) {
+        FileOutputStream outfile = null;
+//String s=args[0]; // to input string from command line Scanner sc=new Scanner(System.in);
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter text: ");
-        String s = sc.nextLine();
-
-        try {
-            Files.write(Path.of("FileName02.txt"), s.getBytes());
-            System.out.println("Write Byte");
-            System.out.println("Thank You...!!!");
-        } catch (IOException e) {
-            e.printStackTrace();
+        String s= sc.nextLine();
+        byte b1[] = s.getBytes();
+        try
+        {
+            outfile = new FileOutputStream("FileName02.txt");
+            outfile.write(b1);
+        }
+        catch(IOException e)
+        {
+            System.out.println(e);
             System.exit(-1);
         }
+        System.out.println("Write Byte");
+        System.out.println("Thank You...!!!");
     }
 }

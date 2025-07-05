@@ -1,86 +1,55 @@
 package day5_java;
 
-public class BinarySearchTree {
-    private static class Node {
-        int value;
-        Node left, right;
-        Node(int v) {
-            value = v;
-            left = right = null;
-        }
-    }
+class TreeNode {
+    int value;
+    TreeNode left, right;
 
-    public Node root;
-    public BinarySearchTree() {
-        root = null;
+    TreeNode(int item) {
+        value = item;
+        left = right = null;
     }
+}
+class BinarySearchTreeOp {
+    TreeNode root;
 
-    public void insertFirst(int value) {
-        if (root != null) {
-            System.out.println("Tree is not empty — use insert(value) instead.");
-            return;
-        }
-        root = new Node(value);
+    void insert(int value) {                       // 10
+        root = insertVal(root, value);      //root = null
     }
-
-    public void insert(int value) {
-        if (root == null) {
-            System.out.println("Tree is empty — using insertFirst instead.");
-            insertFirst(value);
-        } else {
-            root = insertRec(root, value);
-        }
-    }
-    private Node insertRec(Node node, int value) {
+    TreeNode insertVal(TreeNode node, int value) { // null, 10 //
         if (node == null) {
-            return new Node(value);
+            node = new TreeNode(value);
+            return node;
         }
         if (value < node.value) {
-            node.left = insertRec(node.left, value);
+            node.left = insertVal(node.left, value);
         } else if (value > node.value) {
-            node.right = insertRec(node.right, value);
+            node.right = insertVal(node.right, value);
         }
         return node;
     }
 
-    public void inorderTraversal() {
-        inorderRec(root);
-        System.out.println();
+    void inorder() {
+        inorderVal(root);
     }
 
-    public void preorderTraversal() {
-        inorderRec(root);
-        System.out.println();
-    }
-
-    public void postorderTraversal() {
-        inorderRec(root);
-        System.out.println();
-    }
-
-    private void inorderRec(Node node) {
+    void inorderVal(TreeNode node) {
         if (node != null) {
-            inorderRec(node.left);
+            inorderVal(node.left);
             System.out.print(node.value + " ");
-            inorderRec(node.right);
+            inorderVal(node.right);
         }
     }
+}
 
+public class BinarySearchTree {
     public static void main(String[] args) {
-        BinarySearchTree tree = new BinarySearchTree();
-        tree.insertFirst(50);
-        tree.insert(30);
-        tree.insert(70);
-        tree.insert(20);
-        tree.insert(40);
-        tree.insert(60);
-        tree.insert(80);
-        System.out.print("Inorder traversal: ");
-        tree.inorderTraversal();
-        System.out.println("preorder traversal");
-        tree.preorderTraversal();
-        System.out.println("postorder traversal");
-        tree.postorderTraversal();
-
+        BinarySearchTreeOp bstobj = new BinarySearchTreeOp();
+        bstobj.insert(10);
+        bstobj.insert(50);
+        bstobj.insert(40);
+        bstobj.insert(70);
+        bstobj.insert(5);
+        System.out.println("here is the code for in order traversal of Binary search tree ");
+        bstobj.inorder();
     }
 }

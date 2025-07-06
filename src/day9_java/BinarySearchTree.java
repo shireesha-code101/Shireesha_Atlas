@@ -1,4 +1,4 @@
-package day5_java;
+package day9_java;
 
 class TreeNode {
     int value;
@@ -44,9 +44,9 @@ class BinarySearchTreeOp {
 public class BinarySearchTree {
     public static void main(String[] args) {
         BinarySearchTreeOp bstobj = new BinarySearchTreeOp();
-        bstobj.insert(10);
+        bstobj.insert(100);
         bstobj.insert(50);
-        bstobj.insert(40);
+        bstobj.insert(400);
         bstobj.insert(70);
         bstobj.insert(5);
         System.out.println("here is the code for in order traversal of Binary search tree ");

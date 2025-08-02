@@ -1,26 +1,36 @@
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Assertions.assertEquals;
-class TestCase02 {
-    @Test
-    @Tags("firstPriority")
-    void testMethod01() {
+<project xmlns="http://maven.apache.org/POM/4.0.0"
 
-    }
-    
-    @Test
-    @Tag("firstPriority")
-    void runTestcase02() {
 
-    } 
-    @Tags("fastTag")
-    void testMethod03() {
+     	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
-    }
-    
-    @Test
-    @Tag("slowTag")
-    void runTestcase04() {
 
-    }    
-}
+     	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 
+  <modelVersion>4.0.0</modelVersion>
+ 
+  <groupId>com.example</groupId>
+<artifactId>junit5demo</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+ 
+  <dependencies>
+<dependency>
+<groupId>org.junit.jupiter</groupId>
+<artifactId>junit-jupiter</artifactId>
+<version>5.10.0</version>
+<scope>test</scope>
+</dependency>
+</dependencies>
+<build>
+<plugins>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-surefire-plugin</artifactId>
+<version>3.1.2</version>
+<configuration>
+<includeTags>firstPriority,fastTag</includeTags>
+<excludeTags>slowTag</excludeTags>
+</configuration>
+</plugin>
+</plugins>
+</build>
+ </project>
